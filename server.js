@@ -214,3 +214,12 @@ app.listen(PORT, '0.0.0.0', () => {
   console.log(`Health check: http://localhost:${PORT}/health`);
   console.log(`Test with: curl http://localhost:${PORT}/health`);
 });
+
+// Debug endpoint to check environment variables
+app.get('/debug', (req, res) => {
+  res.json({ 
+    hasSecret: !!MCP_SERVER_SECRET,
+    secretLength: MCP_SERVER_SECRET ? MCP_SERVER_SECRET.length : 0,
+    secretPreview: MCP_SERVER_SECRET ? MCP_SERVER_SECRET.substring(0, 5) + '...' : 'undefined'
+  });
+});
